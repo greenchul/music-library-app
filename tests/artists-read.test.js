@@ -2,6 +2,7 @@ const app = require('../src/app');
 const request = require('supertest');
 const getDb = require('../src/services/db');
 const { expect } = require('chai');
+const res = require('express/lib/response');
 
 describe('read artist', () => {
   let db;
@@ -40,15 +41,36 @@ describe('read artist', () => {
         expect(result.status).to.equal(200);
         // result.body should be an array of artist objects
         expect(result.body.length).to.equal(3);
-        console.log(artists);
+
         result.body.forEach((record) => {
-          console.log(record);
           const fromTests = artists.find((test) => {
             return test.id === record.id;
           });
-          console.log(`${record} should equal ${fromTests}`);
+
           expect(record).to.deep.equal(fromTests);
         });
+      });
+    });
+  });
+
+  describe('/artist/:artistId', () => {
+    describe('GET', () => {
+      it('Should return a single artist with the correct ID', async () => {
+        // Will select one artist to test
+        const expectedArtist = artists[0];
+        const expectedArtistId = expectedArtist.id;
+
+        const result = await request(app).get(`/artist/${expectedArtistId}`);
+
+        expect(result.status).to.equal(200);
+
+        expect(result.body).to.deep.equal(expectedArtist);
+      });
+
+      it('should return 404 of the artist is not in the database', async () => {
+        const result = await request(app).get('/artist/9999999999');
+
+        expect(result.status).to.equal(404);
       });
     });
   });

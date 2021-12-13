@@ -29,4 +29,22 @@ const readArtistController = async (request, response) => {
   }
 };
 
-module.exports = { createArtistController, readArtistController };
+const readSingleArtistController = async (request, response) => {
+  const id = request.params.id;
+  const db = await getDb();
+  try {
+    const result = await db.query(`SELECT * FROM Artist WHERE id=?`, [id]);
+    const artist = result[0][0];
+    return artist
+      ? response.status(200).send(artist)
+      : response.sendStatus(404);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = {
+  createArtistController,
+  readArtistController,
+  readSingleArtistController,
+};
