@@ -3,6 +3,7 @@ const {
   createArtistController,
   readArtistController,
   readSingleArtistController,
+  updatingArtistController,
 } = require('../controllers/artist');
 
 const artistRouter = express.Router();
@@ -14,4 +15,6 @@ artistRouter
   .post(createArtistController);
 
 artistRouter.get('/artist/:id', readSingleArtistController);
+
+artistRouter.patch('/artist/:id', updatingArtistController);
 module.exports = artistRouter;

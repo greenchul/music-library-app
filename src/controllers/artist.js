@@ -43,8 +43,13 @@ const readSingleArtistController = async (request, response) => {
   }
 };
 
+const updatingArtistController = (request, response) => {
+  response.status(200).send('Updating artist page');
+};
+
 module.exports = {
   createArtistController,
   readArtistController,
   readSingleArtistController,
+  updatingArtistController,
 };
