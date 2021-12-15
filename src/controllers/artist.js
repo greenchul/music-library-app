@@ -47,19 +47,24 @@ const readSingleArtistController = async (request, response) => {
 const updatingArtistController = async (req, res) => {
   const db = await getDb();
 
-  const { name, genre } = req.body;
+  const data = req.body;
   const id = req.params.id;
 
   try {
-    await db.query('UPDATE Artist SET name=?, genre=? WHERE id = ?', [
-      name,
-      genre,
-      id,
-    ]);
-    res.sendStatus(200);
+    // find if valid id
+    const [[selectedArtist]] = await db.query(
+      'SELECT * FROM Artist WHERE id=?',
+      [id]
+    );
+    console.log(selectedArtist);
+    if (selectedArtist) {
+      await db.query('UPDATE Artist SET ? WHERE id = ?', [data, id]);
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(404);
+    }
   } catch (err) {
     console.log(err);
-    res.sendStatus(500);
   }
 
   db.close();

@@ -38,7 +38,7 @@ describe('update artist', () => {
     describe('PATCH', () => {
       it('Updates a single artist with the correct ID', async () => {
         const artist = artists[0];
-        console.log(artist.id);
+
         const artistID = artist.id;
         const result = await request(app)
           .patch(`/artist/${artist.id}`)
@@ -54,6 +54,14 @@ describe('update artist', () => {
         );
 
         expect(updatedArtist.name).to.equal('test name');
+      });
+
+      it('Response should equal 404 when trying to update an artist that does not exist', async () => {
+        const result = await request(app)
+          .patch('/artist/89675675')
+          .send({ name: 'test', genre: 'test' });
+
+        expect(result.status).to.equal(404);
       });
     });
   });
