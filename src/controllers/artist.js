@@ -1,3 +1,4 @@
+const req = require('express/lib/request');
 const getDb = require('../services/db');
 
 const createArtistController = async (req, res) => {
@@ -43,8 +44,25 @@ const readSingleArtistController = async (request, response) => {
   }
 };
 
-const updatingArtistController = (request, response) => {
-  response.status(200).send('Updating artist page');
+const updatingArtistController = async (req, res) => {
+  const db = await getDb();
+
+  const { name, genre } = req.body;
+  const id = req.params.id;
+
+  try {
+    await db.query('UPDATE Artist SET name=?, genre=? WHERE id = ?', [
+      name,
+      genre,
+      id,
+    ]);
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+
+  db.close();
 };
 
 module.exports = {

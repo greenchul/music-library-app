@@ -2,6 +2,7 @@ const { expect } = require('chai');
 const request = require('supertest');
 const getDb = require('../src/services/db');
 const app = require('../src/app');
+const { afterEach } = require('mocha');
 
 describe('update artist', () => {
   let db;
@@ -37,12 +38,22 @@ describe('update artist', () => {
     describe('PATCH', () => {
       it('Updates a single artist with the correct ID', async () => {
         const artist = artists[0];
+        console.log(artist.id);
         const artistID = artist.id;
         const result = await request(app)
-          .patch(`/artist/${artistID}`)
-          .send({ name: 'test-name', genre: 'test-genre' });
+          .patch(`/artist/${artist.id}`)
+          .send({ name: 'test name', genre: 'test genre' });
 
+        //expect the status code to be 200
         expect(result.status).to.equal(200);
+
+        // expect artist to be {name: "test name", genre: "test genre"}
+        const [[updatedArtist]] = await db.query(
+          `SELECT * FROM Artist Where id=?`,
+          [artistID]
+        );
+
+        expect(updatedArtist.name).to.equal('test name');
       });
     });
   });
