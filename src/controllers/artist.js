@@ -1,4 +1,3 @@
-const req = require('express/lib/request');
 const getDb = require('../services/db');
 
 const createArtistController = async (req, res) => {
@@ -70,9 +69,29 @@ const updatingArtistController = async (req, res) => {
   db.close();
 };
 
+const deletingArtistController = async (req, res) => {
+  const db = await getDb();
+  const id = req.params.id;
+  try {
+    const [[artistToDelete]] = await db.query(
+      'SELECT * FROM Artist WHERE id=?',
+      [id]
+    );
+    if (artistToDelete) {
+      await db.query('DELETE FROM Artist WHERE id=?', [id]);
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   createArtistController,
   readArtistController,
   readSingleArtistController,
   updatingArtistController,
+  deletingArtistController,
 };
