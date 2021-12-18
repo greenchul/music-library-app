@@ -18,4 +18,8 @@ const createAlbumController = async (req, res) => {
   }
 };
 
-module.exports = { createAlbumController };
+const readAlbumsController = async (req, res) => {
+  res.status(200).send('reading all artists');
+};
+
+module.exports = { createAlbumController, readAlbumsController };
