@@ -26,6 +26,7 @@ const readArtistController = async (request, response) => {
   } catch (err) {
     console.log(err);
   }
+  db.close();
 };
 
 const readSingleArtistController = async (request, response) => {
@@ -40,6 +41,7 @@ const readSingleArtistController = async (request, response) => {
   } catch (err) {
     console.log(err);
   }
+  db.close();
 };
 
 const updatingArtistController = async (req, res) => {
@@ -54,7 +56,7 @@ const updatingArtistController = async (req, res) => {
       'SELECT * FROM Artist WHERE id=?',
       [id]
     );
-    console.log(selectedArtist);
+
     if (selectedArtist) {
       await db.query('UPDATE Artist SET ? WHERE id = ?', [data, id]);
       res.sendStatus(200);
@@ -85,6 +87,7 @@ const deletingArtistController = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+  db.close();
 };
 
 module.exports = {

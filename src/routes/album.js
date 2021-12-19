@@ -8,6 +8,6 @@ const albumRouter = express.Router();
 
 albumRouter.post('/artist/:id/album', createAlbumController);
 
-albumRouter.get('/album', readAlbumsController);
+albumRouter.get('/albums', readAlbumsController);
 
 module.exports = albumRouter;

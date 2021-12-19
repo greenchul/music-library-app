@@ -16,10 +16,19 @@ const createAlbumController = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+  db.close();
 };
 
 const readAlbumsController = async (req, res) => {
-  res.status(200).send('reading all artists');
+  const db = await getDb();
+  try {
+    const [albums] = await db.query('SELECT * FROM Album');
+    res.status(200).send(albums);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(404);
+  }
+  db.close();
 };
 
 module.exports = { createAlbumController, readAlbumsController };
