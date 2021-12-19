@@ -22,9 +22,11 @@ const readArtistController = async (request, response) => {
   const db = await getDb();
   try {
     const result = await db.query('SELECT * FROM Artist');
-    response.status(200).send(result[0]);
+    const [artists] = result;
+    response.status(200).send(artists);
   } catch (err) {
     console.log(err);
+    response.status(500).json(err);
   }
   db.close();
 };
@@ -40,6 +42,7 @@ const readSingleArtistController = async (request, response) => {
       : response.sendStatus(404);
   } catch (err) {
     console.log(err);
+    response.status(500).json(err);
   }
   db.close();
 };
@@ -65,6 +68,7 @@ const updatingArtistController = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
+    res.status(500).json(err);
   }
 
   db.close();
@@ -86,6 +90,7 @@ const deletingArtistController = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
+    res.status(500).json(err);
   }
   db.close();
 };

@@ -2,9 +2,11 @@ const app = require('../src/app');
 const getDb = require('../src/services/db');
 const { expect } = require('chai');
 const request = require('supertest');
+const res = require('express/lib/response');
 
 describe('read albums', () => {
   let db;
+
   let albums;
   beforeEach(async () => {
     db = await getDb();
@@ -48,8 +50,8 @@ describe('read albums', () => {
         Alanis.id,
       ]),
     ]);
-
     [albums] = await db.query('SELECT * FROM Album');
+    console.log(albums);
   });
 
   afterEach(async () => {
@@ -57,15 +59,28 @@ describe('read albums', () => {
     await db.close();
   });
 
-  describe('/albums', () => {
+  describe('/album', () => {
     describe('GET', () => {
       it('Should return all the albums in the database', async () => {
-        const result = await request(app).get('/albums');
+        const result = await request(app).get('/album');
         expect(result.status).to.equal(200);
-        const [albums] = await db.query('SELECT * FROM Album');
-        console.log(albums);
-        expect(albums.length).to.equal(3);
-        expect(albums[0].name).to.equal('Fallen');
+
+        expect(result.body.length).to.equal(3);
+
+        expect(result.body[0].name).to.equal('Fallen');
+      });
+    });
+  });
+
+  describe('/album/:id', () => {
+    describe('GET', () => {
+      it('should return a single album when passed the album id', async () => {
+        const id = albums[0].id;
+        console.log(id);
+        const result = await request(app).get(`/album/${id}`);
+        console.log(result);
+        expect(result.status).to.equal(200);
+        expect(result.body.name).to.equal('Fallen');
       });
     });
   });

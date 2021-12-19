@@ -22,13 +22,36 @@ const createAlbumController = async (req, res) => {
 const readAlbumsController = async (req, res) => {
   const db = await getDb();
   try {
-    const [albums] = await db.query('SELECT * FROM Album');
+    const result = await db.query('SELECT * FROM Album');
+    const [albums] = result;
     res.status(200).send(albums);
   } catch (err) {
     console.log(err);
-    res.sendStatus(404);
+    res.sendStatus(500);
   }
   db.close();
 };
 
-module.exports = { createAlbumController, readAlbumsController };
+const readSingleAlbumController = async (req, res) => {
+  const db = await getDb();
+  const id = req.params.id;
+  try {
+    const [[album]] = await db.query('SELECT * FROM Album WHERE id=?', [id]);
+    if (album) {
+      const result = await db.query('SELECT * FROM Album WHERE id=?', [id]);
+      const [[album]] = result;
+      res.status(200).send(album);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+};
+
+module.exports = {
+  createAlbumController,
+  readAlbumsController,
+  readSingleAlbumController,
+};
