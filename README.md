@@ -10,6 +10,8 @@ The project was built with Node and Express and uses SQL to interact with the da
 
 Test Driven Development was used throughout the project with Mocha, Chia and Supertest used for itergation testing.
 
+![Screenshot of database schema](https://github.com/greenchul/greenchul/blob/main/assets/music-lib-schema.png)
+
 ## Installation
 
 - Pull a MySQL image and run the container
