@@ -27,7 +27,6 @@ describe('creating an album', () => {
           .send({ name: 'Riot', year: 2007 });
         expect(result.status).to.equal(201);
         const [[createdAlbum]] = await db.query('SELECT * FROM Album');
-        console.log(createdAlbum);
         expect(createdAlbum.name).to.equal('Riot');
       });
     });

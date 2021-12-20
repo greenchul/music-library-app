@@ -48,10 +48,54 @@ const readSingleAlbumController = async (req, res) => {
     console.log(err);
     res.sendStatus(500);
   }
+  db.close();
+};
+
+//update album
+const updateAlbumController = async (req, res) => {
+  const id = req.params.id;
+  const db = await getDb();
+  const data = req.body;
+  try {
+    const result = await db.query('SELECT * FROM Album WHERE id=?', [id]);
+    const [[album]] = result;
+
+    if (album) {
+      await db.query('UPDATE Album SET ? WHERE id=?', [data, id]);
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+  db.close();
+};
+//delete album
+const deleteAlbumController = async (req, res) => {
+  const db = await getDb();
+  const id = req.params.id;
+  try {
+    const result = await db.query('SELECT * FROM Album WHERE id=?', [id]);
+    const [[album]] = result;
+    if (album) {
+      await db.query('DELETE FROM Album WHERE id=?', [id]);
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+  db.close();
 };
 
 module.exports = {
   createAlbumController,
   readAlbumsController,
   readSingleAlbumController,
+  updateAlbumController,
+  deleteAlbumController,
 };

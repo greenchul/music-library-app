@@ -1,11 +1,11 @@
 const app = require('../src/app');
-const getDb = require('../src/services/db');
-const { expect } = require('chai');
 const request = require('supertest');
+const { expect } = require('chai');
+const getDb = require('../src/services/db');
+const { afterEach } = require('mocha');
 
-describe('read albums', () => {
+describe('deleting albums', () => {
   let db;
-
   let albums;
   beforeEach(async () => {
     db = await getDb();
@@ -58,32 +58,22 @@ describe('read albums', () => {
     await db.close();
   });
 
-  describe('/album', () => {
-    describe('GET', () => {
-      it('Should return all the albums in the database', async () => {
-        const result = await request(app).get('/album');
-        expect(result.status).to.equal(200);
-
-        expect(result.body.length).to.equal(3);
-
-        expect(result.body[0].name).to.equal('Fallen');
-      });
-    });
-  });
-
   describe('/album/:id', () => {
-    describe('GET', () => {
-      it('should return a single album when passed the album id', async () => {
+    describe('delete', () => {
+      it('Should delete album when passed valid id', async () => {
         const id = albums[0].id;
-
-        const result = await request(app).get(`/album/${id}`);
+        const result = await request(app).delete(`/album/${id}`);
 
         expect(result.status).to.equal(200);
-        expect(result.body.name).to.equal('Fallen');
+        const [[deletedAlbum]] = await db.query(
+          'SELECT * FROM Album WHERE id=?',
+          [id]
+        );
+        expect(!!deletedAlbum).to.be.false;
       });
 
-      it('should return status code 404 if the album id doesnt exist', async () => {
-        const result = await request(app).get('/album/99999999');
+      it('Should return status code 404 when trying to delete an artist that does not exist', async () => {
+        const result = await request(app).delete('/album/9999999999');
         expect(result.status).to.equal(404);
       });
     });

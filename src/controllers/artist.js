@@ -18,31 +18,29 @@ const createArtistController = async (req, res) => {
   db.close();
 };
 
-const readArtistController = async (request, response) => {
+const readArtistController = async (req, res) => {
   const db = await getDb();
   try {
     const result = await db.query('SELECT * FROM Artist');
     const [artists] = result;
-    response.status(200).send(artists);
+    res.status(200).send(artists);
   } catch (err) {
     console.log(err);
-    response.status(500).json(err);
+    res.status(500).json(err);
   }
   db.close();
 };
 
-const readSingleArtistController = async (request, response) => {
-  const id = request.params.id;
+const readSingleArtistController = async (req, res) => {
+  const id = req.params.id;
   const db = await getDb();
   try {
     const result = await db.query(`SELECT * FROM Artist WHERE id=?`, [id]);
     const [[artist]] = result;
-    return artist
-      ? response.status(200).send(artist)
-      : response.sendStatus(404);
+    return artist ? res.status(200).send(artist) : res.sendStatus(404);
   } catch (err) {
     console.log(err);
-    response.status(500).json(err);
+    res.status(500).json(err);
   }
   db.close();
 };
