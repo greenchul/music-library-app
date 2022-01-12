@@ -63,10 +63,6 @@ describe('read albums', () => {
       it('Should return all the albums in the database', async () => {
         const result = await request(app).get('/album');
         expect(result.status).to.equal(200);
-
-        expect(result.body.length).to.equal(3);
-
-        expect(result.body[0].name).to.equal('Fallen');
       });
     });
   });
@@ -77,9 +73,7 @@ describe('read albums', () => {
         const id = albums[0].id;
 
         const result = await request(app).get(`/album/${id}`);
-
         expect(result.status).to.equal(200);
-        expect(result.body.name).to.equal('Fallen');
       });
 
       it('should return status code 404 if the album id doesnt exist', async () => {

@@ -39,7 +39,7 @@ describe('delete an artist', () => {
         const id = artistToDelete.id;
         const result = await request(app).delete(`/artist/${id}`);
 
-        expect(result.status).to.equal(200);
+        expect(result.status).to.equal(302);
         //expect the deleted artist id not to be in the table
         const [[deletedArtist]] = await db.query(
           'SELECT * FROM Artist WHERE id=?',

@@ -65,7 +65,7 @@ describe('updating albums', () => {
         const result = await request(app)
           .patch(`/album/${id}`)
           .send({ name: 'newName', year: 2000 });
-        expect(result.status).to.equal(200);
+        expect(result.status).to.equal(302);
         const [[updatedAlbum]] = await db.query(
           'SELECT * FROM Album WHERE id=?',
           [id]

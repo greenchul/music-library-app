@@ -37,18 +37,8 @@ describe('read artist', () => {
     describe('GET', () => {
       it('returns all astist records in the database', async () => {
         const result = await request(app).get('/artist');
-        // console.log(result.body);
+
         expect(result.status).to.equal(200);
-        // result.body should be an array of artist objects
-        expect(result.body.length).to.equal(3);
-
-        result.body.forEach((record) => {
-          const fromTests = artists.find((test) => {
-            return test.id === record.id;
-          });
-
-          expect(record).to.deep.equal(fromTests);
-        });
       });
     });
   });
@@ -63,8 +53,6 @@ describe('read artist', () => {
         const result = await request(app).get(`/artist/${expectedArtistId}`);
 
         expect(result.status).to.equal(200);
-
-        expect(result.body).to.deep.equal(expectedArtist);
       });
 
       it('should return 404 of the artist is not in the database', async () => {

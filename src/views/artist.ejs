@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="../normalize.css" />
+    <link rel="stylesheet" type="text/css" href="../single.css" />
+    <script
+      src="https://kit.fontawesome.com/a3249904fb.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <title><%= artist.name %></title>
+  </head>
+  <body>
+    <nav>
+      <div>
+        <a href="/artist">Artists</a>
+      </div>
+    </nav>
+    <header>
+      <h1><%= artist.name %></h1>
+      <h5><%= artist.genre %></h5>
+    </header>
+    <section class="albums">
+      <h5>Albums</h5>
+      <% if(albums.length === 0) { %>
+      <p>No albums to display!</p>
+      <% } %> <% for(let album of albums){ %>
+      <div>
+        <h4>
+          <a href="/album/<%=album.id%>"><%=album.name %>, <%=album.year %></a>
+        </h4>
+      </div>
+      <% } %>
+    </section>
+    <section>
+      <h5 id="album-btn">Add album <i class="fas fa-chevron-down"></i></h5>
+      <div class="album-hidden">
+        <div class="album-forms">
+          <form action="/artist/<%=artist.id%>/album" method="POST">
+            <input type="text" placeholder="name" name="name" />
+            <input type="number" placeholder="year" name="year" />
+            <button>Create</button>
+          </form>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h5 id="edit-btn">Edit <i class="fas fa-chevron-down"></i></h5>
+      <div class="edit-hidden">
+        <div class="edit-forms">
+          <form action="/artist/<%=artist.id%>?_method=PATCH" method="POST">
+            <input
+              type="text"
+              value="<%=artist.name%>"
+              update-id="name"
+              name="name"
+            />
+            <input
+              type="text"
+              value="<%=artist.genre%>"
+              update-id="genre"
+              name="genre"
+            />
+            <button type="submit">Update <i class="fas fa-edit"></i></button>
+          </form>
+          <form action="/artist/<%=artist.id%>?_method=DELETE" method="POST">
+            <button type="submit" class="delete-btn">
+              Delete <i class="fas fa-trash-alt"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const editButton = document.getElementById('edit-btn');
+      const editForm = document.querySelector('.edit-hidden');
+      const albumButton = document.getElementById('album-btn');
+      const albumForm = document.querySelector('.album-hidden');
+
+      editButton.addEventListener('click', () => {
+        if (editForm.style.display === 'none') {
+          editForm.style.display = 'block';
+        } else {
+          editForm.style.display = 'none';
+        }
+      });
+
+      albumButton.addEventListener('click', () => {
+        if (albumForm.style.display === 'none') {
+          albumForm.style.display = 'block';
+        } else {
+          albumForm.style.display = 'none';
+        }
+      });
+    </script>
+  </body>
+</html>

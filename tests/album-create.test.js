@@ -25,7 +25,7 @@ describe('creating an album', () => {
         const result = await request(app)
           .post(`/artist/${id}/album`)
           .send({ name: 'Riot', year: 2007 });
-        expect(result.status).to.equal(201);
+        expect(result.status).to.equal(302);
         const [[createdAlbum]] = await db.query('SELECT * FROM Album');
         expect(createdAlbum.name).to.equal('Riot');
       });

@@ -21,7 +21,7 @@ describe('create artist', () => {
           genre: 'rock',
         });
 
-        expect(res.status).to.equal(201);
+        expect(res.status).to.equal(302);
 
         const [[artistEntries]] = await db.query(
           `SELECT * FROM Artist WHERE name = 'Evanescence'`

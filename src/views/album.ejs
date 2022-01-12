@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="../normalize.css" />
+    <link rel="stylesheet" type="text/css" href="../single.css" />
+    <script
+      src="https://kit.fontawesome.com/a3249904fb.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <title><%= album.name %></title>
+  </head>
+  <body>
+    <nav>
+      <div>
+        <a href="/album">Albums</a>
+      </div>
+    </nav>
+    <header>
+      <h1><%=album.name %></h1>
+      <h5><%=album.year %></h5>
+      <h5><%= album.artistName %></h5>
+    </header>
+
+    <section>
+      <h5 id="edit-btn">Edit <i class="fas fa-chevron-down"></i></h5>
+      <div class="edit-hidden">
+        <div class="edit-forms">
+          <form action="/album/<%=album.id%>?_method=PATCH" method="POST">
+            <input
+              type="text"
+              value="<%=album.name%>"
+              update-id="name"
+              name="name"
+            />
+            <input
+              type="text"
+              value="<%=album.year%>"
+              update-id="genre"
+              name="year"
+            />
+            <button type="submit">Update <i class="fas fa-edit"></i></button>
+          </form>
+          <form action="/album/<%=album.id%>?_method=DELETE" method="POST">
+            <button type="submit" class="delete-btn">
+              Delete <i class="fas fa-trash-alt"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const editButton = document.getElementById('edit-btn');
+      const editForm = document.querySelector('.edit-hidden');
+
+      editButton.addEventListener('click', () => {
+        if (editForm.style.display === 'none') {
+          editForm.style.display = 'block';
+        } else {
+          editForm.style.display = 'none';
+        }
+      });
+    </script>
+  </body>
+</html>

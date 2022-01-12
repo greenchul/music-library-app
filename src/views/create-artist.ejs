@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="normalize.css" />
+    <link rel="stylesheet" type="text/css" href="create.css" />
+    <script
+      src="https://kit.fontawesome.com/a3249904fb.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Create Artist</title>
+  </head>
+  <body>
+    <nav>
+      <div><a href="/">back</a></div>
+    </nav>
+    <header>
+      <h1>Create an Artist</h1>
+    </header>
+    <section>
+      <form action="/artist" method="POST">
+        <input type="text" placeholder="Artist Name" id="name" name="name" />
+        <input type="text" placeholder="Artist Genre" id="genre" name="genre" />
+        <button type="submit" class="btn btn-light">Create</button>
+      </form>
+    </section>
+  </body>
+</html>

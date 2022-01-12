@@ -1,0 +1,98 @@
+body {
+  font-family: 'Rubik', sans-serif;
+  background: rgb(175, 216, 217);
+  background: linear-gradient(
+    102deg,
+    rgba(175, 216, 217, 1) 32%,
+    rgba(127, 108, 145, 0.5228466386554622) 100%
+  );
+  height: 100vh;
+}
+.nav-link a {
+  color: black;
+}
+header {
+  margin-left: 25px;
+}
+h1 {
+  font-size: 40px;
+  color: white;
+  text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+}
+
+h5 {
+  font-size: 25px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+i {
+  color: black;
+}
+
+.edit-hidden,
+.album-hidden {
+  display: none;
+}
+
+.edit-forms,
+.album-forms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+input {
+  font-size: 25px;
+  margin-top: 10px;
+  border-radius: 25px;
+  padding: 5px;
+  text-align: center;
+}
+button {
+  border-radius: 25px;
+  padding: 15px;
+  margin-top: 10px;
+  font-weight: bold;
+  display: block;
+}
+
+.delete-btn {
+  color: rgb(206, 103, 103);
+}
+
+#edit-btn,
+#album-btn {
+  font-size: 25px;
+  margin-left: 25px;
+}
+
+.albums {
+  margin-left: 25px;
+}
+
+@media screen and (min-width: 768px) {
+  h1 {
+    font-size: 80px;
+  }
+  h3 {
+    font-size: 40px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  h1 {
+    font-size: 80px;
+  }
+  h3 {
+    font-size: 40px;
+  }
+}

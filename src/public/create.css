@@ -1,0 +1,61 @@
+body {
+  background: rgb(175, 216, 217);
+  background: linear-gradient(
+    102deg,
+    rgba(175, 216, 217, 1) 32%,
+    rgba(127, 108, 145, 0.5228466386554622) 100%
+  );
+  font-family: 'Rubik', sans-serif;
+  height: 100vh;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  padding-top: 20px;
+}
+
+input {
+  display: block;
+  margin-top: 50px;
+  border-radius: 25px;
+  padding: 5px;
+}
+
+button {
+  border-radius: 25px;
+  padding: 15px;
+  margin-top: 50px;
+  font-weight: bold;
+}
+
+@media screen and (min-width: 768px) {
+  header {
+    font-size: 40px;
+  }
+  input {
+    padding: 10px;
+    font-size: 25px;
+  }
+  button {
+    font-size: 30px;
+  }
+  nav {
+    font-size: 25px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  form {
+    width: 50%;
+  }
+  button {
+    letter-spacing: 3px;
+  }
+}

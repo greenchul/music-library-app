@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="normalize.css" />
+    <link rel="stylesheet" type="text/css" href="view.css" />
+    <title>Albums</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-link">
+        <a href="/">Home</a>
+      </div>
+    </nav>
+    <header>
+      <h1>Albums</h1>
+    </header>
+    <section class="items">
+      <% for(let album of albums){ %>
+      <div class="item">
+        <h5><%= album.name %></h5>
+        <h5><%= album.artistName %></h5>
+        <h6><%= album.year %></h6>
+        <a href="/album/<%=album.id%>">More info</a>
+      </div>
+      <% } %>
+    </section>
+  </body>
+</html>

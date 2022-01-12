@@ -64,7 +64,7 @@ describe('deleting albums', () => {
         const id = albums[0].id;
         const result = await request(app).delete(`/album/${id}`);
 
-        expect(result.status).to.equal(200);
+        expect(result.status).to.equal(302);
         const [[deletedAlbum]] = await db.query(
           'SELECT * FROM Album WHERE id=?',
           [id]
