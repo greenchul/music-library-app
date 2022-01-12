@@ -1,16 +1,14 @@
-# Music Library API
+# Music Library App
 
 ## About
 
-The Music libraby API project as part of the Manchester Codes curriculum (back-end module).
+A project inspired the Manchester Codes back end module Music Library API project with an added font end.
 
 The project implements RESTful routes and allows users to perform CRUD (Create, Read, Update, Delete) operations on artist and albums in a MySQL database.
 
-The project was built with Node and Express and uses SQL to interact with the database.
+The project was built with Node Express, EJS and CSS and uses SQL to interact with the database.
 
-Test Driven Development was used throughout the project with Mocha, Chia and Supertest used for itergation testing.
-
-![Screenshot of database schema](https://github.com/greenchul/greenchul/blob/main/assets/music-lib-schema.png)
+Test Driven Development was used throughout the project with Mocha, Chia and Supertest used for integration testing.
 
 ## Installation
 
