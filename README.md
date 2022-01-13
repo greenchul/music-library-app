@@ -8,6 +8,8 @@ The project implements RESTful routes and allows users to perform CRUD (Create, 
 
 The project was built with Node Express, EJS and CSS and uses SQL to interact with the database.
 
+The project is live [here](https://music-app-rs.herokuapp.com/)
+
 Test Driven Development was used throughout the project with Mocha, Chia and Supertest used for integration testing.
 
 ## Installation
